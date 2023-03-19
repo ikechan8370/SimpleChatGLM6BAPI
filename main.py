@@ -65,10 +65,11 @@ if __name__ == '__main__':
     model = None
     if args.device == 'cpu':
         if quantize == 8:
-            print('cpu模式下量化等级只能是16或4')
+            print('cpu模式下量化等级只能是16或4，使用4')
+            model_name = "THUDM/chatglm-6b-int4"
         elif quantize == 4:
             model_name = "THUDM/chatglm-6b-int4"
-            model = AutoModel.from_pretrained(model_name, trust_remote_code=True).float()
+        model = AutoModel.from_pretrained(model_name, trust_remote_code=True).float()
     else:
         model = AutoModel.from_pretrained(model_name, trust_remote_code=True).half().quantize(quantize).cuda()
     model = model.eval()

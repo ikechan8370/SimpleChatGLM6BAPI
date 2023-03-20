@@ -60,7 +60,7 @@ if __name__ == '__main__':
     parser.add_argument('--port', '-P', help='监听端口号', default=8080)
     args = parser.parse_args()
     model_name = "THUDM/chatglm-6b"
-    quantize = args.quantize
+    quantize = int(args.quantize)
     tokenizer = AutoTokenizer.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True)
     model = None
     if args.device == 'cpu':

@@ -71,6 +71,9 @@ if __name__ == '__main__':
             model_name = "THUDM/chatglm-6b-int4"
         model = AutoModel.from_pretrained(model_name, trust_remote_code=True).float()
     else:
-        model = AutoModel.from_pretrained(model_name, trust_remote_code=True).half().quantize(quantize).cuda()
+        if quantize == 16:
+            model = AutoModel.from_pretrained(model_name, trust_remote_code=True).half().cuda()
+        else:
+            model = AutoModel.from_pretrained(model_name, trust_remote_code=True).half().quantize(quantize).cuda()
     model = model.eval()
     run(host=args.host, port=args.port)
